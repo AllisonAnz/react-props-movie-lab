@@ -27,24 +27,33 @@ const posterMap = {
   'default': defaultPoster
 }
 
+
 export default class MovieCard extends Component {
 
   render() {
+    //you can see that each MovieCard comp, contains different props. pass the props to the two 
+    //child comp. of MovieCard. CardFront and CardBack
+    console.log(this.props)
     return (
       <div className="movie-card">
-        {/* which component should receive which props? */}
-        <CardFront poster={posterMap[this.props.poster]} />
-        <CardBack 
-            title={this.props.title}
-            IMDBRating={this.props.IMDBRating}
-            genres={this.props.genres}
-            />
+        {/* CardFront: make a prop var (posterProp), pass in this.props.poster (this=the class MovieCard, prop=the passed in props from MovieShowcase that we are sending to CardFront) */}
+        <CardFront posterProp={posterMap[this.props.poster]}/>
+        {/* CardBack renders the title, genre, rating, <img> tag if IMDB Rating prop is valid */}
+        {/* name the var titleProp, and pass in MovieCards prop (title) which was inherited from MovieShowcase, and pass it to CardBack */}
+        <CardBack titleProp={this.props.title}
+                  genresProp={this.props.genres}
+                  IMDBRating={this.props.IMDBRating}
+                  />
       </div>
     )
   }
 }
 
 // Don't forget your default props!
+//assign default prop 'unknown' for title prop 
+//assign default prop null for IMDBRating prop
+//assign default prop ['No Genre(s) Found'] for genres prop
+//assign default prop 'default' for poster prop
 MovieCard.defaultProps = {
   title: 'Unknown',
   IMDBRating: null,
